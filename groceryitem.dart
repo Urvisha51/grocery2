@@ -1,30 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+class groceryitem extends StatelessWidget {
+  final String itemName;
+  final String itemPrice;
+  final String imagePath;
+  final color;
+  void Function()? onPressed;
+  groceryitem({super.key,
+    required this.itemName,
+    required this.itemPrice,
+    required this.imagePath,
+  required this.color,
+    required this.onPressed,
 
-class cartmodel extends ChangeNotifier {
-  final List _shopItems = [
-    ["Avocado", "4.00", "lib/images/avocado.png", Colors.green],
-    ["Banana", "2.50", "lib/images/banana.png", Colors.yellow],
-    ["chicken", "5.00", "lib/images/chicken.png", Colors.brown],
-    ["Water", "1.00", "lib/images/water.png", Colors.blue],
-  ];
-  List _cartItems=[];
-  get shopItems => _shopItems;
-  get cartItems => _cartItems;
-  void addItemToCart(int index){
-    _cartItems.add(_shopItems[index]);
-    notifyListeners();}
+  }) ;
 
-  void removeItemFormCart(int index){
-    _cartItems.removeAt(index);
-    notifyListeners();}
-  String calculateTotal(){
-    double totalPrice=0;
-    for (int i=0;i< _cartItems.length;i++) {
-      totalPrice += double.parse(_cartItems[i][1]);
-    }
-    return totalPrice.toStringAsFixed(2);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Container(
+        decoration: BoxDecoration(color: color[100],
+        borderRadius: BorderRadius.circular(12)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+          Image.asset(imagePath,height: 64,),
+          Text(itemName),
+          MaterialButton(onPressed:onPressed,
+            color: color[800],
+            child: Text("Rs."+itemPrice,
+            style:const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),),
+          )
+
+        ],),
+      ),
+    );
   }
-
 }
+
+
+
+
+
+
 
